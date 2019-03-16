@@ -1,0 +1,265 @@
+/* Body */
+body {
+  padding: 0px;
+  margin: 0px;
+  height: 100%;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+}
+
+html {
+  height: 100%;
+}
+
+
+#page-holder {
+  width: 100%;
+  height: 100%
+}
+
+#map-container {
+	width: 100%;
+	height: 90vh;
+	position:relative;
+	border: 1px solid lightgrey;
+	box-sizing: border-box;
+}
+
+.pac-container {
+  z-index: 1051 !important;
+  width: 300px !important;
+}
+
+.modal {
+  display: block;
+  position: absolute;
+  z-index: 1050;
+  padding-top: 100px;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgb(0, 0, 0);
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+/* Modal Content */
+.modal-content {
+  position: relative;
+  background-color: #fefefe;
+  margin: auto;
+  padding: 0;
+  border: 1px solid #888;
+  width: 40%;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  margin-top: 10%;
+}
+
+.search-container button {
+  float: right;
+  background: #ddd;
+  font-size: 17px;
+  border: none;
+  cursor: pointer;
+  width: 40px;
+  height: 40px;
+}
+
+#locate-me-button {
+	position: absolute;
+	z-index: 1001;
+	bottom: 90px;
+	right: 10px;
+	background-color: #fff;
+	border-radius: 2px;
+	cursor: pointer;
+	border: 2px solid rgba(0,0,0,0.2);
+	padding: 3px;
+}
+#search-button {
+	position: absolute;
+	z-index: 1001;
+	bottom: 126px;
+	right: 10px;
+	background-color: #fff;
+	border-radius: 2px;
+	cursor: pointer;
+	border: 2px solid rgba(0,0,0,0.2);
+	padding: 3px;
+}
+#go-back-button {
+	position: absolute;
+	z-index: 1001;
+	bottom: 162px;
+	right: 10px;
+	background-color: #fff;
+	border-radius: 2px;
+	cursor: pointer;
+	border: 2px solid rgba(0,0,0,0.2);
+	padding: 3px;
+}
+
+.search-container button:hover {
+  background: #ccc;
+}
+
+.search-container input[type=text] {
+  padding: 6px;
+  margin-top: 8px;
+  font-size: 17px;
+  border: none;
+  padding-left: 15px;
+  padding-top: 6px;
+  padding-bottom: 6px;
+  padding-right: 6px;
+  width: calc(100% - 104px);
+}
+
+#searchBox:focus, input:focus {
+  outline: none;
+}
+
+/* Map */
+#map {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  float: left;
+  z-index: 1;
+}
+
+/* Tooltip */
+.leaflet-tooltip {
+  font-size: 12px;
+  margin-top: 2px;
+  margin-bottom: 2px;
+  padding-top: 0px;
+  padding-bottom: 0px;
+  color: #725139;
+}
+
+
+
+.hover {
+  background-color: #f7ff8e !important
+}
+
+.info i.fas {
+  display: inline-block;
+  border-radius: 40px;
+  box-shadow: 0px 0px 2px #888;
+  color: #333;
+}
+
+.fa-bus {
+  background-color: #c6dcff;
+  padding: 5px 5px
+}
+
+.fa-ship {
+  background-color: #6cd873;
+  padding: 5px 3px 5px 3px;
+}
+
+.fa-train {
+  background-color: #ff9b9b;
+  padding: 5px 5px 5px 6px;
+}
+
+
+
+
+#banner {
+    padding: 12em 0 10em 0;
+    text-align: center;
+    background-color: rgba(0,0,0,0.6);
+}
+
+.wrapper {
+	padding: 6em 0;
+}
+
+.inner {
+    max-width: 75vw;
+    margin: 0 auto;
+	font-size: 16px;
+}
+
+#banner h1 {
+    font-size: 3.5em;
+    font-weight: 100;
+    color: #fff;
+    line-height: 1em;
+    margin: 0 0 0.5em 0;
+    padding: 0;
+	
+}
+
+p {
+	margin: 0 0 2em 0;
+	text-align: left;
+	line-height: 1.5;
+	text-align: justify;
+}
+
+li {
+	padding-bottom: 6px;
+}
+
+hr {
+	margin-bottom: 24px;
+}
+
+#results-bar {
+	width: 100%;
+	height: 0px;
+	color: white;
+	background-color: rgba(0,0,0,0.8);
+	transition: height 0.3s;
+	position: absolute;
+	z-index: 1001;
+	box-sizing: border-box;
+}
+
+
+#close {
+    display:block;
+	font-size: 20px;
+	cursor: pointer;
+	position: absolute;
+    top: 5px;
+    right: 10px;
+}
+
+.action-button:hover {
+	background-color: #89b4f9 !important;
+}
+
+@media only screen and (max-width: 600px) {
+
+	#legend {
+		font-size: 14px!important;
+	}
+	
+	.active {
+		height: 260px !important;
+		width: 290px !important;
+		background-color: rgba(255,255,255,1) !important;
+	}
+	
+	.inner {
+		max-width: 90vw;
+	}
+	
+	#modal-content {
+		width: 90%;
+		padding: 8px;
+		padding-right: 30px;
+		box-sizing: border-box;
+	}
+	
+	#banner h1 {
+		font-size: 2em;
+	}
+}
