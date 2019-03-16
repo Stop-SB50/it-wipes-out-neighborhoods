@@ -1,0 +1,201 @@
+<!doctype html>
+<html>
+<head>
+	<title>SB50 Impact</title>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+    <!-- Mobile meta tags-->
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+	<meta name="MobileOptimized" content="320"/>
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta http-equiv="cleartype" content="on">
+
+	<!-- CSS -->
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css"
+		integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ=="
+		crossorigin=""/>
+	<link rel="stylesheet" href="css/style.css" />
+	
+	<link rel="stylesheet" href="icons/MapkeyIcons.css" />
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<link rel="stylesheet" href="css/leaflet-gesture-handling.min.css" type="text/css">
+	<link rel="stylesheet" href="css/font-awesome.min.css" type="text/css">
+	<link rel="stylesheet" href="css/leaflet.social.css" type="text/css">
+	
+</head>
+
+<body>
+	<!-- Javascript -->
+	<script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js'></script>
+	
+	<!-- leaflet -->
+	<script src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"	
+		integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw=="
+		crossorigin="">
+	</script>
+	
+	<!-- Google script for search bar -->
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyACpYdes2G55YIwyqiVdAUIHg03xf-eGgg&libraries=places"></script>	
+	
+	<!-- control + scroll to zoom -->
+	<script src="js/leaflet-gesture-handling.min.js"></script>
+
+	<!-- point in poly -->
+	<script src="js/leaflet-pip.js"></script>	
+
+    <noscript>
+		<div id="noscript_note">
+			You must have JavaScript enabled to view this page.
+		</div>
+	</noscript>
+
+
+
+	<div class="App">
+		<section id="banner" style="padding-top: 4em; padding-bottom: 1em;">
+			<h1>What Would SB 50 Really Do to Our Streets and Cities?</h1>
+		</section>
+	
+		<section class="wrapper" style="padding-top: 1em; padding-bottom: 1em; color: black;">
+			<div class="inner">
+			<p>
+				To explore the map, it helps to know what Senate Bill 50 proposes and who wrote it. SB 50 says that all single-family neighborhoods close to rail, train or ferry stops or high-frequency bus stops will be “up-zoned” to allow luxury apartment buildings as high as 8 stories. SB 50 also says that all single-family neighborhoods near good public schools and jobs  will be “up-zoned” to allow luxury towers as high as 7 stories.
+			</p>
+			<p>
+				Sen. Scott Wiener’s bill, which is a far more extreme version of his failed SB 827, strips cities and counties of zoning and planning powers in the areas defined on the map. Those powers are transferred to individual luxury housing developers who agree to include some affordable units in their buildings. SB 50 was ghost-written by lobbyists for developers. Its official author, Wiener, has amassed hundreds of thousands of dollars in donations from developers, builders and real estate investors.
+			</p>
+			<p>
+				SB 50 purports to offer renter “protections” from evictions and demolitions by requiring a building be vacant for 7 years before it can be up-zoned to allow demolition and luxury housing. Yet very few cities are able to track a building’s historic vacancy details, leaving renters largely unprotected. Wiener also says he protects “sensitive” diverse communities by giving them 5 years to comply with his up-zoning. In fact, it’s a threat: up-zone or SB 50 will do it for you.
+			</p>
+			<p>
+				To see if your neighbourhood is likely to be upzoned by SB 50, search the map below. If you're concerned with the results, please take a moment to share the map via social media.</p>
+			</p>
+			<p style="font-weight:700;text-align: left; color: black; background: lightgray; padding: 1em;">
+				We make no warranties as to the correctness of this map, and by using this map, you agree that you understand that. 
+			</p>
+			</div>
+		</section>
+	
+		<div class="inner" style="color: black; padding-bottom:10px;"><div style="display: inline-block;">
+			<div style="vertical-align: middle; width: 20px; height: 20px; display: inline-block; border: 1px solid black; background-color: rgba(0, 255, 0, 0.15);"></div> Buildings up to 85'</div>
+			<div style="display: inline-block;"><div style="vertical-align: middle; width: 20px; height: 20px; display: inline-block; border: 1px solid black; background-color: rgba(0, 0, 255, 0.15);"></div> Buildings up to 75'</div> 
+			<div style="display: inline-block;"><div style="vertical-align: middle; width: 20px; height: 20px; display: inline-block; border: 1px solid black; background-color: rgba(255, 255, 0, 0.15);"></div> Buildings up to 75' (in jobs rich/good school areas)</div>
+		</div>
+
+		<div id="map-container">
+		
+			<div id="results-bar"></div>
+		
+			<div id='search-modal' class='modal'>
+				<div class="modal-content" id="modal-content">
+					<span id="close" onclick="close_search()";>x</span>
+					<div class="modal-body">
+						<div style="padding:16px;font-size: 16px;">
+							Enter your address or city to find out if your area would be up-zoned to tall apartment buildings by SB 50.
+						</div>
+						<div class="search-container">
+							<form style="border-top: 1px solid lightgrey" action="javascript:void(0);">
+								<input type="text" placeholder="Search.." name="searchBox" id="searchBox">
+								<button id="search-address-button"><i class="fa fa-search" onclick="searchAddress();"></i></button>
+							</form>
+						</div>
+						
+					</div>
+				</div>
+			</div>
+		
+			<div id="map"></div>
+	
+			<div id="search-button" class="action-button"><i class="material-icons" onclick="search_another_address();">search</i></div>
+			<div id="go-back-button" class="action-button" ><i class="material-icons" onclick="go_back();">arrow_back</i></div>
+			<div id="locate-me-button" class="action-button" ><i class="material-icons" onclick="locate_me();">my_location</i></div>
+	
+		</div>
+
+		<div class="inner">
+			<h2 style="text-align: center;"> FAQs </h2>
+			
+			<p style="font-weight:600;font-style:italic;margin:0 0 0.5em 0;color:#5292f9;font-size: 18px;">
+				What is a jobs-rich/good schools area & why are they being up-zoned if they don't have transit?
+			</p>
+			<p>
+				The definition of "jobs-rich/good schools" areas is undefined in SB 50, as of mid-March 2019. But according to the San Francisco Planning Department's new analysis, these zones may mimic "high resource" areas previously mapped by the State of California for other programs.
+				</br></br>
+				In our map, we roughly approximate the San Francisco Planning Department's approach in creating the yellow jobs-rich/good schools zones, within which buildings up to 75 feet high will be allowed next to, and replacing, single-family homes. Ours are purely projections and will be updated once the California legislature decides on a definition within the next month. Wiener has been quoted by some as saying he wants apartment towers in areas without good transit because single-family homes are "immoral."
+			</p>
+			<hr>
+			<p style="font-weight:600;font-style:italic;margin:0 0 0.5em 0;color:#5292f9;font-size: 18px;">
+				What ELSE does SB 50 dramatically change in our communities?
+			</p>
+			<p style="margin:0 0 0.5em 0">
+				Developers can override up to 6 local zoning and planning standards,* in essence becoming their own zoners and planners. Thanks to quiet amendments made by legislators Wiener and Nancy Skinner to the obscure Housing Accountability Act of 1982, under SB 50, cities and counties can't fight a developer unless the project is <b>a direct public safety threat</b> (not an indirect threat, like smog).
+				</br></br>
+				In overriding local standards, developers can choose exemptions and waivers from a big menu including:
+				<ol>
+					<li>No parking required in apartment towers </li>
+					<li>Override density maximums (number of apartment units per parcel) </li>
+					<li>Slash or eliminate yards, and building setbacks for trees</li>
+					<li>Allow demolition of historic buildings not protected by the state</li>
+					<li>Eliminate on-site open space (balconies, courtyards)</li>
+					<li>Remove demolition controls</li>
+					<li>Ignore design standards</li>
+					<li>Evade Impact Fees </li>				
+				</ol>
+			</p>
+			<hr>	
+			<p style="font-weight:600;font-style:italic;margin:0 0 0.5em 0;color:#5292f9;font-size: 18px;">
+				Why does SB 50 say "minimum heights" would be 45 or 55 feet? It doesn't mention 75 or 85 feet.
+			</p>
+			<p>
+				Under state "Density Bonus" law, a developer can add up to 30 feet to the minimum allowed height. Under SB 50, which some call "density bonus on steroids," developers cannot build anything LOWER than 45 feet. Depending on how many affordable units a developer agrees to include, a developer can qualify for additional "bonus" stories, up to 30 feet above the minimum height of 45 or 55 feet. 
+			</p>
+			<hr>
+			<p style="font-weight:600;font-style:italic;margin:0 0 0.5em 0;color:#5292f9;font-size: 18px;">
+				What is a High-Frequency Bus Stop, and can transit agencies add bus stops that cause up-zoning?
+			</p>
+			<p>
+				These are bus routes with extremely frequent service of 15 minutes during morning and evening hours and 30-minute service on weekends. Yes, transit agencies can add additional buses to meet the SB 50 criteria, setting off new rounds of future up-zoning in residential areas. We believe approval of the bill would set off battles against good bus service. In San Diego, several bus lines were recently increased to 15-minute frequencies, requiring just six months of effort, at modest cost. It is unlikely that residents of San Diego know that
+			</p>
+		
+		</div>
+
+	</div>
+
+
+
+	
+
+
+	
+
+	<!-- Mapkey Icons -->
+	<script src="icons/L.Icon.Mapkey.js"></script>
+	
+
+	
+	<!-- leaflet hash adds lat / lng to url -->
+	<script src="js/leaflet-hash.js"></script>
+	
+	<script src="js/leaflet.social.js"></script>
+	
+		
+	<!-- load data files -->	
+	<script src="data/bus_stops.js"></script>
+	<script src="data/train_stops.js"></script>
+	<script src="data/ferries.js"></script>
+	<script src="data/buildings_to_75ft_jobs_rich_good_schools.js"></script>
+	<script src="data/buildings_to_75ft_rail_ferry.js"></script>
+	<script src="data/buildings_to_85ft.js"></script>
+	
+	
+	<!-- Run main script -->
+	<script src="js/script.js"></script>
+	
+	
+
+
+	
+</body>
+</html>
