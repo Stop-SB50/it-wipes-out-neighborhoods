@@ -261,4 +261,8 @@ hr {
 	#banner h1 {
 		font-size: 2em;
 	}
+	
+	.legend-item {
+		width: 100% !important;
+	}
 }
