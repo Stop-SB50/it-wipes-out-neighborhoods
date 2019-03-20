@@ -561,7 +561,17 @@ function go_back() {
     resultsBar.style.height = "auto";
 	resultsBar.style.padding = "10px";
     resultsBar.innerHTML = boundsStack[boundsStack.length - 2]['result']
+	  
+    $('#hide-results')
+      .on("click", function() {
+	hideResults();
+      });
 
+    $('.act-now-link')
+      .on("click", function() {
+	showActNow();
+      });
+	  
     boundsStack.pop();
   }
 }
