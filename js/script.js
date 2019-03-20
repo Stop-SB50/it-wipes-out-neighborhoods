@@ -196,10 +196,8 @@ function searchAddress() {
     var sw = viewport.getSouthWest()
     var ne = viewport.getNorthEast()
     var bounds = L.latLngBounds(L.latLng(sw.lat(), sw.lng()), L.latLng(ne.lat(), ne.lng()))
-    map.fitBounds(bounds);
-	if (map.getZoom() > 15) {
-		map.setZoom(15);
-	}
+    map.fitBounds(bounds, {maxZoom: 15});
+
 	
     var coords = [place.geometry.location.lat(), place.geometry.location.lng()];
     var marker = L.marker(coords);
@@ -227,7 +225,6 @@ function searchAddress() {
 				tooltipElement = document.getElementById("locate-tooltip");
 			} else if (i == 3) {
 				tooltipElement = document.getElementsByClassName("leaflet-control-zoom-in")[0].childNodes[1];
-				console.log(tooltipElement);
 			} else {
 				tooltipElement = document.getElementsByClassName("leaflet-control-zoom-out")[0].childNodes[1];
 			}
@@ -238,7 +235,6 @@ function searchAddress() {
 			i++
 			if (i == 5) {
 				clearInterval(tid)
-				console.log('done');
 			}
 		}
 		
@@ -274,7 +270,10 @@ function showResults(affected, marker) {
   resultsBar.style.height = "auto";
   resultsBar.style.padding = "10px";
 
+
+  var mapId = "15/"+map.getBounds().getCenter().lat+"/"+map.getBounds().getCenter().lat
   boundsStack.push({
+	'id': mapId,
     'bounds': map.getBounds(),
     'marker': marker,
     'result': html,
@@ -395,6 +394,7 @@ var ferryTerminalsLayer = L.geoJson(null, {
 
 var buildings_to_85ft_layer = L.geoJson(buildings_85ft, {
     style: {
+      //fillColor: '#81C99F',
       fillColor: 'red',
       fillOpacity: 0.2,
       weight: 1,
@@ -408,6 +408,7 @@ var buildings_to_85ft_layer = L.geoJson(buildings_85ft, {
 
 var buildings_to_75ft_rail_ferries_layer = L.geoJson(buildings_75ft_rail_ferry, {
     style: {
+      //fillColor: '#86a5d8',
       fillColor: 'blue',
       fillOpacity: 0.2,
       weight: 1,
@@ -421,6 +422,7 @@ var buildings_to_75ft_rail_ferries_layer = L.geoJson(buildings_75ft_rail_ferry, 
 
 var buildings_to_75ft_jobs_schools_layer = L.geoJson(buildings_75ft_jobs_schools, {
     style: {
+      //fillColor: '#e8e68f',
       fillColor: 'yellow',
       fillOpacity: 0.2,
       weight: 1,
@@ -547,32 +549,45 @@ map.on("movestart", function() {
 });
 
 function go_back() {
-  if (boundsStack.length > 1) {
+  if (boundsStack.length > 0) {
     makerGroupLayer.clearLayers();
 
-    var bounds = boundsStack[boundsStack.length - 2]['bounds']
-    var curMarker = boundsStack[boundsStack.length - 2]['marker']
+    
+	var curMapId = "15/"+map.getBounds().getCenter().lat+"/"+map.getBounds().getCenter().lat
+	var testMapId = boundsStack[boundsStack.length - 1]['id']
+	
+	if (curMapId == testMapId) {
+		if (boundsStack.length > 1) {
+			boundsStack.pop();
+		}
+	}
+	
+	var bounds = boundsStack[boundsStack.length - 1]['bounds']
+    var curMarker = boundsStack[boundsStack.length - 1]['marker']
+	var resultsHTML = boundsStack[boundsStack.length - 1]['result']
+	
     if (curMarker != undefined) {
       curMarker.addTo(makerGroupLayer);
     }
     map.fitBounds(bounds);
 
+
     var resultsBar = document.getElementById("results-bar")
     resultsBar.style.height = "auto";
 	resultsBar.style.padding = "10px";
-    resultsBar.innerHTML = boundsStack[boundsStack.length - 2]['result']
-	  
-    $('#hide-results')
-      .on("click", function() {
-	hideResults();
-      });
+    resultsBar.innerHTML = resultsHTML
 
-    $('.act-now-link')
-      .on("click", function() {
-	showActNow();
-      });
+	$('#hide-results')
+	  .on("click", function() {
+		hideResults();
+	  });
 	  
-    boundsStack.pop();
+	  $('.act-now-link')
+	  .on("click", function() {
+		showActNow();
+	  });
+
+    
   }
 }
 
