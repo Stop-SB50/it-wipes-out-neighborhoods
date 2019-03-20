@@ -116,8 +116,8 @@ searchBox.addListener('places_changed', function() {
 });
 
 $(window).on('popstate', function(e) {
-  closeTOS();
-  closeActNow();
+  closeTOS(1);
+  closeActNow(1);
   
 });
 
@@ -153,7 +153,7 @@ $('.TOS-link')
 
 $('#close-tos')
   .on("click", function() {
-    closeTOS();
+    closeTOS(0);
   });
   
 $('.act-now-link')
@@ -163,7 +163,7 @@ $('.act-now-link')
 
 $('#close-act-now')
   .on("click", function() {
-    closeActNow();
+    closeActNow(0);
   });  
 
 function showActNow() {
@@ -173,11 +173,13 @@ function showActNow() {
 	history.pushState({foo: 'tos'}, "")
 }
 
-function closeActNow() {
+function closeActNow(type) {
 	  document.getElementById("act-now-modal")
     .style.display = 'none';	
 	$("body").css("overflow","auto");
-	window.history.back();
+	if (type == 1) {
+		window.history.back();
+	}
 }
 
 
@@ -188,11 +190,13 @@ function showTOS() {
 	history.pushState({foo: 'tos'}, "")
 }
 
-function closeTOS() {
+function closeTOS(type) {
 	document.getElementById("tos-modal")
     .style.display = 'none';	
 	$("body").css("overflow","auto");
-	window.history.back();
+	if (type == 1) {
+		window.history.back();
+	}
 }
 
 
