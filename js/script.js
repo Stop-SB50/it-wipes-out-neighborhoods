@@ -249,6 +249,8 @@ function searchAddress() {
 		showResults(affected, marker);
 	}
 
+	document.getElementById('results-bar').scrollIntoView();
+	
 	// if it's the first search the user does, bubble out all the help tooltips
 	if (firstSearch) {
 		firstSearch = false;
