@@ -395,7 +395,7 @@ var ferryTerminalsLayer = L.geoJson(null, {
 
 var buildings_to_85ft_layer = L.geoJson(buildings_85ft, {
     style: {
-      fillColor: '#81C99F',
+      fillColor: 'red',
       fillOpacity: 0.2,
       weight: 1,
       color: "#000",
@@ -408,7 +408,7 @@ var buildings_to_85ft_layer = L.geoJson(buildings_85ft, {
 
 var buildings_to_75ft_rail_ferries_layer = L.geoJson(buildings_75ft_rail_ferry, {
     style: {
-      fillColor: '#86a5d8',
+      fillColor: 'blue',
       fillOpacity: 0.2,
       weight: 1,
       color: "#000",
@@ -421,7 +421,7 @@ var buildings_to_75ft_rail_ferries_layer = L.geoJson(buildings_75ft_rail_ferry, 
 
 var buildings_to_75ft_jobs_schools_layer = L.geoJson(buildings_75ft_jobs_schools, {
     style: {
-      fillColor: '#e8e68f',
+      fillColor: 'yellow',
       fillOpacity: 0.2,
       weight: 1,
       color: "#000",
