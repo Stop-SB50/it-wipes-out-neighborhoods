@@ -115,6 +115,12 @@ searchBox.addListener('places_changed', function() {
 
 });
 
+$(window).on('popstate', function(e) {
+  closeTOS();
+  closeActNow();
+  
+});
+
 $('#search-address-button')
   .on("click", function() {
     searchAddress();
@@ -164,12 +170,14 @@ function showActNow() {
 	document.getElementById("act-now-modal")
     .style.display = 'block';	
 	$("body").css("overflow","hidden");
+	history.pushState({foo: 'tos'}, "")
 }
 
 function closeActNow() {
 	  document.getElementById("act-now-modal")
     .style.display = 'none';	
 	$("body").css("overflow","auto");
+	window.history.back();
 }
 
 
@@ -177,12 +185,14 @@ function showTOS() {
 	document.getElementById("tos-modal")
     .style.display = 'block';	
 	$("body").css("overflow","hidden");
+	history.pushState({foo: 'tos'}, "")
 }
 
 function closeTOS() {
-	  document.getElementById("tos-modal")
+	document.getElementById("tos-modal")
     .style.display = 'none';	
 	$("body").css("overflow","auto");
+	window.history.back();
 }
 
 
