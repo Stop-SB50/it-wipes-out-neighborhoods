@@ -177,7 +177,7 @@ function closeActNow(type) {
 	  document.getElementById("act-now-modal")
     .style.display = 'none';	
 	$("body").css("overflow","auto");
-	if (type == 1) {
+	if (type == 0) {
 		window.history.back();
 	}
 }
@@ -194,7 +194,7 @@ function closeTOS(type) {
 	document.getElementById("tos-modal")
     .style.display = 'none';	
 	$("body").css("overflow","auto");
-	if (type == 1) {
+	if (type == 0) {
 		window.history.back();
 	}
 }
