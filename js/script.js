@@ -176,8 +176,8 @@ $('#close-act-now')
 
 $('#searchBox')
   .on("click", function() {
-	 //make sure map is centered in view
-	document.getElementById('legend-container').scrollIntoView(); 
+      //make sure map is centered in view
+      //document.getElementById('legend-container').scrollIntoView(); 
   });
 
 function showActNow() {
