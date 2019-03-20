@@ -166,6 +166,12 @@ $('#close-act-now')
     closeActNow(0);
   });  
 
+$('#searchBox')
+  .on("click", function() {
+	 //make sure map is centered in view
+	document.getElementById('legend-container').scrollIntoView(); 
+  });
+
 function showActNow() {
 	document.getElementById("act-now-modal")
     .style.display = 'block';	
