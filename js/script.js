@@ -10,6 +10,7 @@
 
 // GLOBAL VARIABLES
 var boundsStack = [];
+var firstSearch = true;
 //////////////////////////////////////////////////////////
 
 
@@ -63,6 +64,21 @@ L.control.zoom({
     position: 'bottomright'
   })
   .addTo(map);
+
+// add tooltips to zoom
+var zoomIn = document.getElementsByClassName("leaflet-control-zoom-in")[0]
+var tooltipTextZoomIn = document.createElement('span')
+tooltipTextZoomIn.textContent="Zoom in";
+tooltipTextZoomIn.classList.add("tooltiptext")
+tooltipTextZoomIn.style.width = "100px";
+zoomIn.appendChild(tooltipTextZoomIn)
+
+var zoomOut = document.getElementsByClassName("leaflet-control-zoom-out")[0]
+var tooltipTextZoomOut = document.createElement('span')
+tooltipTextZoomOut.textContent = "Zoom out";
+tooltipTextZoomOut.classList.add("tooltiptext")
+tooltipTextZoomOut.style.width = "100px";
+zoomOut.appendChild(tooltipTextZoomOut)
 
 //////////////////////////////////////////////////////////
 
@@ -123,15 +139,54 @@ $('#close-search')
   .on("click", function() {
     closeSearch();
   });
-
-$('#hide-results')
+  
+$('.TOS-link')
   .on("click", function() {
-    hideResults();
+    showTOS();
   });
+
+$('#close-tos')
+  .on("click", function() {
+    closeTOS();
+  });
+  
+$('.act-now-link')
+  .on("click", function() {
+    showActNow();
+  });
+
+$('#close-act-now')
+  .on("click", function() {
+    closeActNow();
+  });  
+
+function showActNow() {
+	document.getElementById("act-now-modal")
+    .style.display = 'block';	
+	$("body").css("overflow","hidden");
+}
+
+function closeActNow() {
+	  document.getElementById("act-now-modal")
+    .style.display = 'none';	
+	$("body").css("overflow","auto");
+}
+
+
+function showTOS() {
+	document.getElementById("tos-modal")
+    .style.display = 'block';	
+	$("body").css("overflow","hidden");
+}
+
+function closeTOS() {
+	  document.getElementById("tos-modal")
+    .style.display = 'none';	
+	$("body").css("overflow","auto");
+}
 
 
 function searchAddress() {
-  console.log("searchAddress");
 
   if (place) {
 
@@ -142,6 +197,10 @@ function searchAddress() {
     var ne = viewport.getNorthEast()
     var bounds = L.latLngBounds(L.latLng(sw.lat(), sw.lng()), L.latLng(ne.lat(), ne.lng()))
     map.fitBounds(bounds);
+	if (map.getZoom() > 15) {
+		map.setZoom(15);
+	}
+	
     var coords = [place.geometry.location.lat(), place.geometry.location.lng()];
     var marker = L.marker(coords);
     marker.addTo(makerGroupLayer);
@@ -149,10 +208,46 @@ function searchAddress() {
       .style.display = 'none';
 
     var affected = checkIfAffected(marker);
-    showResults(affected, marker);
-  }
+		showResults(affected, marker);
+	}
+
+	// if it's the first search the user does, bubble out all the help tooltips
+	if (firstSearch) {
+		firstSearch = false;
+		var i = 0
+		var tid = setInterval(showTooltip, 150);
+
+		function showTooltip() {
+			var tooltipElement;
+			if (i == 0) {
+				tooltipElement = document.getElementById("back-tooltip");				
+			} else if (i == 1) {
+				tooltipElement = document.getElementById("search-tooltip");
+			} else if (i == 2) {
+				tooltipElement = document.getElementById("locate-tooltip");
+			} else if (i == 3) {
+				tooltipElement = document.getElementsByClassName("leaflet-control-zoom-in")[0].childNodes[1];
+				console.log(tooltipElement);
+			} else {
+				tooltipElement = document.getElementsByClassName("leaflet-control-zoom-out")[0].childNodes[1];
+			}
+
+			tooltipElement.style.visibility = 'visible';
+			tooltipElement.style.opacity = 1;
+			
+			i++
+			if (i == 5) {
+				clearInterval(tid)
+				console.log('done');
+			}
+		}
+		
+	}
+
+	
 
 }
+
 
 
 function search_another_address() {
@@ -174,7 +269,7 @@ function closeSearch() {
 function showResults(affected, marker) {
   var searchAddress = place['formatted_address']
   var resultsBar = document.getElementById("results-bar")
-  var html = '<div style="padding-right:20px;"><b>' + searchAddress + "</b> is " + affected + '</div><span class="close-button" id="hide_results">x</span>'
+  var html = '<div style="padding-right:20px;"><b>' + searchAddress + "</b> is " + affected + '</div><span class="close-button" id="hide-results">x</span>'
   resultsBar.innerHTML = html
   resultsBar.style.height = "auto";
   resultsBar.style.padding = "10px";
@@ -183,6 +278,16 @@ function showResults(affected, marker) {
     'bounds': map.getBounds(),
     'marker': marker,
     'result': html,
+  });
+  
+  $('#hide-results')
+  .on("click", function() {
+    hideResults();
+  });
+  
+  $('.act-now-link')
+  .on("click", function() {
+    showActNow();
   });
 }
 
@@ -206,14 +311,14 @@ function checkIfAffected(marker) {
 
   if (leafletPip.pointInLayer(markerLngLat, buildings_to_85ft_layer, true)
     .length > 0) {
-    affected = 'within 1/4 mi of a high frequency bus stop and could be <span style="color:red;font-weight:600;">upzoned to 85ft</span>. Share this result using the social links at bottom left!.';
+    affected = 'within 1/4 mi of a high frequency bus stop and could be <span style="color:red;font-weight:600;">upzoned to 85ft</span>. Share this result using the social links at bottom left, and <font class="act-now-link" style="color: red;font-weight:600; cursor: pointer;text-decoration: underline;">act now</font> by contacting your legislator!';
   } else if (leafletPip.pointInLayer(markerLngLat, buildings_to_75ft_rail_ferries_layer, true)
     .length > 0) {
-    affected = 'within 1/2 mi of a rail station or ferry terminal and could be <span style="color:red;font-weight:600;">upzoned to 75ft</span>. Share this result using the social links at bottom left!.';
+    affected = 'within 1/2 mi of a rail station or ferry terminal and could be <span style="color:red;font-weight:600;">upzoned to 75ft</span>. Share this result using the social links at bottom left, and <font class="act-now-link" style="color: red;font-weight:600; cursor: pointer;text-decoration: underline;">act now</font> by contacting your legislator!';
   } else if (leafletPip.pointInLayer(markerLngLat, buildings_to_75ft_jobs_schools_layer, true)
     .length > 0) {
     affected =
-      'within a jobs rich or good school area and could be <span style="color:red;font-weight:600;">upzoned to 75ft</span>. Note that these areas are provisional and may change as more information is released. Share this result using the social links at bottom left!';
+      'within a jobs rich or good school area and could be <span style="color:red;font-weight:600;">upzoned to 75ft</span>. Note that these areas are provisional and may change as more information is released. Share this result using the social links at bottom left, and <font class="act-now-link" style="color: red;font-weight:600; cursor: pointer;text-decoration: underline;">act now</font> by contacting your legislator!';
   } else {
     affected = 'outside any upzoning areas.';
   }
@@ -419,6 +524,28 @@ function scaleOpacity(zoomLevel) {
 
 }
 
+map.on("click", function() {
+	var tooltips = document.getElementsByClassName("tooltiptext")
+	
+	for (var i=0; i<tooltips.length; i++) {
+		var elem = tooltips[i];
+		elem.style.visibility = "hidden";
+		elem.style.opacity = 0;
+	}
+
+});
+
+map.on("movestart", function() {
+	var tooltips = document.getElementsByClassName("tooltiptext")
+	
+	for (var i=0; i<tooltips.length; i++) {
+		var elem = tooltips[i];
+		elem.style.visibility = "hidden";
+		elem.style.opacity = 0;
+	}
+
+});
+
 function go_back() {
   if (boundsStack.length > 1) {
     makerGroupLayer.clearLayers();
@@ -432,6 +559,7 @@ function go_back() {
 
     var resultsBar = document.getElementById("results-bar")
     resultsBar.style.height = "auto";
+	resultsBar.style.padding = "10px";
     resultsBar.innerHTML = boundsStack[boundsStack.length - 2]['result']
 
     boundsStack.pop();
@@ -488,7 +616,7 @@ function getPosition(position) {
 
   var coords = [position.coords.latitude, position.coords.longitude];
 
-  map.setView(coords, 17);
+  map.setView(coords, 15);
   var marker = L.marker(coords);
   marker.addTo(makerGroupLayer);
   document.getElementById("search-modal")
