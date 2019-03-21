@@ -69,6 +69,11 @@ html {
   background-color: rgba(0, 0, 0, 0.4);
 }
 
+.modal .modal-body {
+	font-size: 20px;
+	font-weight: 600;
+}
+
 #tos-modal {
 	display: none;
 	z-index: 9999;
@@ -321,6 +326,10 @@ hr {
   width: 50%;
 }
 
+.leaflet-social-control .fa {
+	font-size: 30px;
+}	
+
 /* Clear floats after the columns */
 .row:after {
   content: "";
@@ -398,6 +407,9 @@ hr {
     width: 100%;
 	margin-bottom: 20px;
   }
+  #results-bar {
+		font-size: 16px;
+	}
 }
 
 @media (min-width: 601px){
@@ -415,5 +427,7 @@ hr {
 		visibility: visible !important;
 		opacity: 1 !important;
 	}
-	
+	#results-bar {
+		font-size: 24px;
+	}
 }
