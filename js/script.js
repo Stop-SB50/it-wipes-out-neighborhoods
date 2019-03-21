@@ -378,7 +378,7 @@ var busStopsLayer = L.geoJson(null, {
     },
     onEachFeature: function(feature, layer) {
       if (feature.properties.stop_name != null) {
-        layer.bindTooltip(feature.properties.stop_name, {
+        layer.bindTooltip("BUS STOP - " + feature.properties.stop_name, {
           closeButton: false,
           offset: L.point(0, 0),
           classname: 'leaflet-tooltip'
@@ -397,7 +397,7 @@ var trainStopsLayer = L.geoJson(null, {
     },
     onEachFeature: function(feature, layer) {
       if (feature.properties.stop_name != null) {
-        layer.bindTooltip(feature.properties.stop_name, {
+        layer.bindTooltip("TRAIN STATION - " + feature.properties.stop_name, {
           closeButton: false,
           offset: L.point(0, 0),
           classname: 'leaflet-tooltip'
@@ -416,7 +416,7 @@ var ferryTerminalsLayer = L.geoJson(null, {
     },
     onEachFeature: function(feature, layer) {
       if (feature.properties.stop_name != null) {
-        layer.bindTooltip(feature.properties.stop_name, {
+        layer.bindTooltip("FERRY TERMINAL - " + feature.properties.stop_name, {
           closeButton: false,
           offset: L.point(0, 0),
           classname: 'leaflet-tooltip'
@@ -488,6 +488,9 @@ map.on('moveend', function() {
 
   if (z >= 14) {
 
+	map.addLayer(busStopsLayer);
+	map.addLayer(trainStopsLayer);
+	map.addLayer(ferryTerminalsLayer);
 
     if (map.hasLayer(busStopsLayer)) {
       loadDataInCurrentView(bus_stops, busStopsLayer);
