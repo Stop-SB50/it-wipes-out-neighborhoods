@@ -66,6 +66,9 @@ var map = L.map('map', {
   gestureHandling: true
 });
 
+var bounds = L.latLngBounds(L.latLng(34.497957, -119.386017), L.latLng(33.514425, -117.372639));
+map.fitBounds(bounds);
+
 var hash = new L.Hash(map);
 
 // define base tiles and add to map
@@ -248,9 +251,9 @@ function searchAddress() {
     var affected = checkIfAffected(marker);
 		showResults(affected, marker);
 	}
-
-	document.getElementById('results-bar').scrollIntoView();
 	
+	document.getElementById('results-bar').scrollIntoView();
+
 	// if it's the first search the user does, bubble out all the help tooltips
 	if (firstSearch) {
 		firstSearch = false;
@@ -352,14 +355,14 @@ function checkIfAffected(marker) {
 
   if (leafletPip.pointInLayer(markerLngLat, buildings_to_85ft_layer, true)
     .length > 0) {
-    affected = 'within 1/4 mi of a high frequency bus stop and could be <span style="color:red;font-weight:600;">upzoned to 85ft</span>. Share this result using the social links at bottom left, and <font class="act-now-link" style="color: red;font-weight:600; cursor: pointer;text-decoration: underline;">act now</font> by contacting your legislator!';
+    affected = 'within 1/4 mi of a high frequency bus stop and could be <span style="color:red;font-weight:600;">upzoned to 85ft</span>. Share this result using the social links at bottom left, and <font class="act-now-link" style="color: cyan;font-weight:600; cursor: pointer;text-decoration: underline;">act now</font> by contacting your legislator!';
   } else if (leafletPip.pointInLayer(markerLngLat, buildings_to_75ft_rail_ferries_layer, true)
     .length > 0) {
-    affected = 'within 1/2 mi of a rail station or ferry terminal and could be <span style="color:red;font-weight:600;">upzoned to 75ft</span>. Share this result using the social links at bottom left, and <font class="act-now-link" style="color: red;font-weight:600; cursor: pointer;text-decoration: underline;">act now</font> by contacting your legislator!';
+    affected = 'within 1/2 mi of a rail station or ferry terminal and could be <span style="color:red;font-weight:600;">upzoned to 75ft</span>. Share this result using the social links at bottom left, and <font class="act-now-link" style="color: cyan;font-weight:600; cursor: pointer;text-decoration: underline;">act now</font> by contacting your legislator!';
   } else if (leafletPip.pointInLayer(markerLngLat, buildings_to_75ft_jobs_schools_layer, true)
     .length > 0) {
     affected =
-      'within a jobs rich or good school area and could be <span style="color:red;font-weight:600;">upzoned to 75ft</span>. Note that these areas are provisional and may change as more information is released. Share this result using the social links at bottom left, and <font class="act-now-link" style="color: red;font-weight:600; cursor: pointer;text-decoration: underline;">act now</font> by contacting your legislator!';
+      'within a jobs rich or good school area and could be <span style="color:red;font-weight:600;">upzoned to 75ft</span>. Note that these areas are provisional and may change as more information is released. Share this result using the social links at bottom left, and <font class="act-now-link" style="color: cyan;font-weight:600; cursor: pointer;text-decoration: underline;">act now</font> by contacting your legislator!';
   } else {
     affected = 'outside any upzoning areas.';
   }
