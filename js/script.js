@@ -656,7 +656,7 @@ function locate_me() {
 
   var options = {
     enableHighAccuracy: false,
-    timeout: 5000,
+    timeout: 20000,
     maximumAge: 0
   };
 
