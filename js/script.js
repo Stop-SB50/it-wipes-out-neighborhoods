@@ -669,7 +669,7 @@ function locate_me() {
 
 function errorPosition(err) {
   console.warn("ERROR(${err.code}): ${err.message}");
-  alert("Unable to location you, ${err.message}");
+  alert("Unable to location you, " + err.message);
 }
 
 function getPosition(position) {
