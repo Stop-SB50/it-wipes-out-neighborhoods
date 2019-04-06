@@ -104,12 +104,12 @@ html {
 }
 
 #search-modal {
-  display: none;
+	display: none;
 }
 
 #search-modal .modal-body {
-  font-size: 20px;
-  font-weight: 600;
+	font-size: 20px;
+	font-weight: 600;
 }
 
 #tos-modal {
@@ -361,6 +361,8 @@ hr {
   position: absolute;
   z-index: 1001;
   box-sizing: border-box;
+  top: 42px;
+  border-top: 1px solid grey;
 }
 
 .close-button {
@@ -393,43 +395,24 @@ hr {
 }
 
 .take-action-button {
-	max-width: 200px;
+	max-width: 250px;
     width: 100%;
     height: 35px;
-    background: #034ec1;
+    background-color: rgba(0,0,255,0.8);
     border: none;
     color: #e5e5e5;
 	cursor: pointer;
+	font-size: 18px;
 }
 
 .take-action-button:hover {
 	background-color: blue;
 }
 
-/* print layout stuff 
-.grid-print-container {
-	grid-template: auto 1fr auto / 1fr;
-	background-color: orange;
-}
-.grid-map-print {
-	grid-row: 2;
-}
-.title {
-	grid-row: 1;
-	justify-self: center;
-	color: white;
-}
-.sub-content {
-	grid-row: 5;
-	padding-left: 10px;
-}
-*/
-
-
 
 
 @media only screen and (max-width: 600px) {
-  #legend {
+  #legend-container {
     font-size: 14px !important;
   }
 
@@ -500,7 +483,8 @@ hr {
 	padding-right: 0px !important;
   }
   #results-bar {
-		font-size: 16px;
+		font-size: 14px !important;
+		top: 82px !important;
 	}
 	
   .stop-sb50-logo {
@@ -509,7 +493,8 @@ hr {
   
   #tos-statement {
 	padding-top: 0 !important;
-	text-align: left !important;
+	font-size: 16px !important;
+	padding-bottom: 0 !important;
   }
   
   #footer-button-col-0 {
@@ -538,7 +523,35 @@ hr {
   }
 
   .take-action-button {
-	
+	font-size: 14px !important;
+	max-width: 200px !important;
+	height: 30px !important;
+  }
+  
+  .legend-item div {
+	 width: 20px !important; 
+	 height : 20px !important; 
+	 margin-bottom: 2px !important;
+  }
+
+  #print-upper {
+	padding: 10px !important;
+	box-sizing: border-box;
+	text-align: center !important;
+  }
+
+  #main-preamble {
+	line-height: 1.1em !important; 
+	font-size: 18px !important;
+  }
+  
+  #header-row-0 {
+	 padding-top: 0px !important; 
+  }
+  
+  #upper-header-img-container {
+	  padding-left: 0 !important;
+	  margin-bottom: 10px !important;
   }
 
 }
