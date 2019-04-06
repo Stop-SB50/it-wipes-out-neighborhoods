@@ -106,6 +106,7 @@ html {
 #search-modal .modal-body {
 	font-size: 20px;
 	font-weight: 600;
+	display: none;
 }
 
 #tos-modal {
