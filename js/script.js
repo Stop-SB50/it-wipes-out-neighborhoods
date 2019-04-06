@@ -59,7 +59,7 @@ var map = L.map('map', {
   gestureHandling: true
 });
 
-if (document.URL == 'https://github.com/Stop-SB50/it-wipes-out-neighborhoods') {
+if (document.URL == 'https://stop-sb50.github.io/it-wipes-out-neighborhoods') {
   var bounds = L.latLngBounds(L.latLng(34.497957, -119.386017), L.latLng(33.514425, -117.372639));
   map.fitBounds(bounds);
   document.getElementById("search-modal")
