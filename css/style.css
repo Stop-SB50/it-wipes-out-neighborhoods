@@ -103,10 +103,13 @@ html {
   background-color: transparent;
 }
 
+#search-modal {
+  display: none;
+}
+
 #search-modal .modal-body {
-	font-size: 20px;
-	font-weight: 600;
-	display: none;
+  font-size: 20px;
+  font-weight: 600;
 }
 
 #tos-modal {
