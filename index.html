@@ -20,8 +20,8 @@
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 	<link rel="stylesheet" href="css/leaflet-gesture-handling.min.css" type="text/css">
 	<link rel="stylesheet" href="css/font-awesome.min.css" type="text/css">
-	<link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/jquery.jssocials/1.4.0/jssocials.css" />
-	<link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/jquery.jssocials/1.4.0/jssocials-theme-flat.css" />
+	<link type="text/css" rel="stylesheet" href="css/jssocials.css" />
+	<link type="text/css" rel="stylesheet" href="css/jssocials-theme-flat.css" />
 
 </head>
 
@@ -402,44 +402,46 @@
 		</div>
 
 		
-		<div id='print-upper' style="background-color:black;width:100%;position:relative;z-index:1050;" leaflet-browser-print-content>
-			<div id="header-row-0" class="row" style="width:80%;margin:auto;padding-top:20px;">
+		<div id='print-upper' style="background-color:black;width:100%;position:relative;z-index:1050;">
+			<div id="header-row-0" class="row" style="width:100%;margin:auto;padding-top:20px;">
 			
-				<div class="column" style="width:30%;float:left;min-width:180px;">
-					<img class="stop-sb50-logo" src="icons/stop_sb50.png" width="150">
+				<div class="column" id='upper-header-img-container' style="width:30%;float:left;min-width:180px;padding-left:10%;box-sizing:border-box;">
+					<img class="stop-sb50-logo" src="icons/stop_sb50.png" width="200">
 				</div>
 				<div class="column" style="width:70%;float:left;color:#e5e5e5;padding-right:20px;box-sizing: border-box;">
-					<font style="font-weight:700;font-size:24px;">Will California Senate Bill SB 50 wipe out your neighborhood?</font></br></br>
-						<p style="line-height:1.5em;margin:0;max-width: 400px;">
-						<font style="color:#e8bf0b;font-size:18px;">Are you in the SB 50 zone?</font></br>
+					<font id='main-title' style="font-weight:700;font-size:30px;">Will California Senate Bill SB 50 wipe out your neighborhood?</font></br></br>
+						<div id='main-preamble' style="line-height:1.5em;margin:0;font-size:24px;padding-right:10%;box-sizing:border-box;">
+						<font style="color:#e8bf0b;font-weight:600">Are you in the SB 50 zone?</font></br>
 						SB 50 is an unprecedented law that will destroy thousands of homes & apartments to build luxury housing up to 8 stories high.
-						</p>
+						</div>
 					
 				</div>
 				
 			</div>
 			
-			<div class="row" id="tos-statement" style="color:#e5e5e5;width:80%;margin:auto;text-align:center;padding-top:20px;padding-bottom:20px;">
+			<div class="row" id="tos-statement" style="color:#e5e5e5;width:100%;margin:auto;text-align:center;padding-top:20px;padding-bottom:20px;font-size:20px;">
 				By using this map, you agree that you understand our <font class="TOS-link" style="cursor: pointer;text-decoration: underline;">TOS</font>.
 			</div>
 			
-			<div id="legend-container" class="row" style="color:#e5e5e5;width:80%;margin:auto;padding-bottom:20px;">
-				<div class="legend-item" style="display: inline-block;width:33.33%;float:left;min-width:300px;">
-					<div style="vertical-align: middle; width: 20px; height: 20px; display: inline-block; border: 1px solid grey; background-color: red;"></div> Buildings as high as 85 ft. would be erected
-				</div>
-				<div class="legend-item" style="display: inline-block;width:33.33%;float:left;min-width:300px;">
-					<div style="vertical-align: middle; width: 20px; height: 20px; display: inline-block; border: 1px solid grey; background-color: blue;"></div> Buildings as high as 75 ft. would be erected
-				</div>
-				<div class="legend-item" style="display: inline-block;width:33.33%;float:left;min-width:300px;">
-					<div style="vertical-align: middle; width: 20px; height: 20px; display: inline-block; border: 1px solid grey; background-color: gold;"></div> Buildings as high as 75 ft. would be erected
-				</div>
-			</div>
+			
 		
 			
 		
 		</div>
 
 		<div id="map-container">
+		
+			<div id="legend-container" class="row" style="color:#e5e5e5;width:100%;font-size:18px;position:absolute;top:0px;z-index:1050;background-color:rgba(0,0,0,0.8);padding-top:5px;padding-bottom:5px;" leaflet-browser-print-content>
+				<div class="legend-item" style="display: inline-block;width:33%;text-align:center;min-width:300px;">
+					<div style="vertical-align: middle; width: 30px; height: 30px; display: inline-block; border: 1px solid grey; background-color: red;"></div> Buildings as high as 85 ft. would be erected
+				</div>
+				<div class="legend-item" style="display: inline-block;width:33%;text-align:center;min-width:300px;">
+					<div style="vertical-align: middle; width: 30px; height: 30px; display: inline-block; border: 1px solid grey; background-color: blue;"></div> Buildings as high as 75 ft. would be erected
+				</div>
+				<div class="legend-item" style="display: inline-block;width:33%;text-align:center;min-width:300px;">
+					<div style="vertical-align: middle; width: 30px; height: 30px; display: inline-block; border: 1px solid grey; background-color: gold;"></div> Buildings as high as 75 ft. would be erected
+				</div>
+			</div>
 
 			<div id="testShare" style="position:absolute;top:0:left:0;z-index:1050;width:100%;"></div>
 
@@ -607,7 +609,7 @@
 	<script src="js/leaflet-hash.js"></script>
 
 	<!-- social icons -->
-	<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery.jssocials/1.4.0/jssocials.min.js"></script>
+	<script type="text/javascript" src="js/jssocials.js"></script>
 	
 	<!-- print -->
 	<script src="js/leaflet.browser.print.min.js"></script>
