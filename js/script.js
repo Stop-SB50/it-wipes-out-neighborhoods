@@ -21,27 +21,30 @@ if(/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine
     isMobile = true;
 }
 
+
 //////////////////////////////////////////////////////////
 
 // DEFINE ICONS
-var bus_icon = L.icon.mapkey({
-  icon: "bus",
-  color: '#725139',
-  background: '#c6dcff',
-  size: 20
+
+
+var bus_icon = L.icon({
+  iconUrl : 'icons/bus.png',
+  iconSize: [20,20],
+  iconAnchor: [10,10],
 });
-var train_icon = L.icon.mapkey({
-  icon: "train",
-  color: '#725139',
-  background: '#ff9b9b',
-  size: 20
+
+var train_icon = L.icon({
+  iconUrl : 'icons/train.png',
+  iconSize: [20,20],
+  iconAnchor: [10,10],
 });
-var ferry_icon = L.icon.mapkey({
-  icon: "ship",
-  color: '#725139',
-  background: '#6cd873',
-  size: 20
+
+var ferry_icon = L.icon({
+  iconUrl : 'icons/ferry.png',
+  iconSize: [20,20],
+  iconAnchor: [10,10],
 });
+
 
 
 //////////////////////////////////////////////////////////
@@ -69,6 +72,15 @@ var baseTiles = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}
   })
   .addTo(map);
 
+// labels layer - this brings tile labels to top
+map.createPane('labels');
+var tileLabels = L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager_only_labels/{z}/{x}/{y}{r}.png', {
+        pane: 'labels',
+        subdomains: 'abcd',
+        maxZoom: 19
+    })
+	.addTo(map);
+
 L.control.zoom({
     position: 'bottomright'
   })
@@ -91,10 +103,50 @@ zoomOut.appendChild(tooltipTextZoomOut)
 
 //////////////////////////////////////////////////////////
 
-L.control.social({
-    default_text: "Looks like I'm affected by SB50, how about you?"
-  })
-  .addTo(map);
+L.control.browserPrint({
+	position: 'bottomright',
+	printModes: ["Landscape", "Portrait", L.control.browserPrint.mode.custom("Select an area", "A4")],
+}).addTo(map)
+
+$('.leaflet-control-browser-print').css('bottom','100px')
+
+map.on('browser-pre-print', function(e) {
+	console.log('preprint')
+	$('#header-row-0').css('display','none');
+	$('#tos-statement').css('display','none');
+	$('#legend-container').css('width','100%');
+	$('#legend-container').css('padding-bottom','0');
+	$('#legend-container').css('padding','10px');
+	$('#print-upper').css('position','absolute');
+	$('#print-upper').css('top','0');
+	$('#print-upper').css('left','0');
+	$('#print-upper').css('background-color','rgba(0,0,0,0.8)');
+	$('#map-container').css('border','1 px solid black');
+});
+
+map.on('browser-print-end', function(e) {
+	console.log('doneprint')
+	$('#header-row-0').css('display','block');
+	$('#tos-statement').css('display','block');
+	$('#legend-container').css('width','80%');
+	$('#print-upper').css('position','relative');
+	$('#map-container').css('border','none');
+	$('#legend-container').css('padding','0')
+	$('#legend-container').css('padding-bottom','20px');
+	$('#print-upper').css('background-color','black');
+	
+
+});
+
+
+$("#share-tooltip").jsSocials({
+	shares: ["email", "twitter", "facebook"],
+	text: "Check out the impact of SB 50 on my neighborhood!",
+});
+$("#share-tooltip1").jsSocials({
+	shares: ["email", "twitter", "facebook"],
+	text: "Check out the impact of SB 50 on my neighborhood!",
+});
 
 // SEARCH BOX
 
@@ -149,6 +201,11 @@ $('#go-back-button')
   .on("click", function() {
     go_back();
   });
+  
+//$('#print-button')
+//  .on("click", function() {
+//    print();
+//  });
 
 $('#close-search')
   .on("click", function() {
@@ -168,6 +225,11 @@ $('#close-tos')
 $('.act-now-link')
   .on("click", function() {
     showActNow();
+  }); 
+  
+$('.take-action-button')
+  .on("click", function(e) {
+    action_button_clicked(e.currentTarget.textContent);
   });
 
 $('#close-act-now')
@@ -178,7 +240,7 @@ $('#close-act-now')
 $('#searchBox')
   .on("click", function() {
 	if (!isMobile) {
-		document.getElementById('legend-container').scrollIntoView(); 
+		document.getElementById('map').scrollIntoView(); 
 	}
   });
 
@@ -199,6 +261,25 @@ function closeActNow(type) {
 	}
 }
 
+function action_button_clicked(e) {
+	if (e == 'JOIN THE FIGHT') {
+		console.log('link to sb50 page for JOIN THE FIGHT');
+	} else if (e == 'TELL YOUR LEGISLATOR') {
+		console.log('link to sb50 page for TELL YOUR LEGISLATOR');
+	} else {
+		
+		if (isMobile) {
+			
+			if ($('.share-buttons-tooltip').css('visibility') == 'hidden') {			
+				$('.share-buttons-tooltip').css('visibility', 'visible');
+				$('.share-buttons-tooltip').css('opacity', '1');
+			} else {
+				$('.share-buttons-tooltip').css('visibility', 'hidden');
+				$('.share-buttons-tooltip').css('opacity', '0');
+			}
+		}
+	}
+}
 
 function showTOS() {
 	document.getElementById("tos-modal")
@@ -244,16 +325,24 @@ function searchAddress() {
 	
 	document.getElementById('results-bar').scrollIntoView();
 
+	bubbleTooltips();
+
 	// if it's the first search the user does, bubble out all the help tooltips
-	if (firstSearch) {
+	
+
+}
+
+function bubbleTooltips() {
+	if (firstSearch && !isMobile) {
 		firstSearch = false;
+		
 		var i = 0
 		var tid = setInterval(showTooltip, 150);
 
 		function showTooltip() {
 			var tooltipElement;
 			if (i == 0) {
-				tooltipElement = document.getElementById("back-tooltip");				
+				tooltipElement = document.getElementById("back-tooltip");
 			} else if (i == 1) {
 				tooltipElement = document.getElementById("search-tooltip");
 			} else if (i == 2) {
@@ -268,17 +357,13 @@ function searchAddress() {
 			tooltipElement.style.opacity = 1;
 			
 			i++
-			if (i == 5) {
+			if (i == 6) {
 				clearInterval(tid)
 			}
 		}
 		
 	}
-
-	
-
 }
-
 
 
 function search_another_address() {
@@ -295,6 +380,8 @@ function search_another_address() {
 function closeSearch() {
   document.getElementById("search-modal")
     .style.display = 'none';
+	
+	bubbleTooltips()
 }
 
 function showResults(affected, marker) {
@@ -345,14 +432,14 @@ function checkIfAffected(marker) {
 
   if (leafletPip.pointInLayer(markerLngLat, buildings_to_85ft_layer, true)
     .length > 0) {
-    affected = 'within 1/4 mi of a high frequency bus stop and could be <span style="color:red;font-weight:600;">upzoned to 85ft</span>. Share this result using the social links at bottom left, and <font class="act-now-link" style="color: cyan;font-weight:600; cursor: pointer;text-decoration: underline;">act now by contacting your legislator!</font>';
+    affected = 'within 1/4 mi of a high frequency bus stop and will allow buildings <span style="color:red;font-weight:600;">up to 85ft under SB 50</span>. Use the buttons below to share this map, or to contact your local legislator!';
   } else if (leafletPip.pointInLayer(markerLngLat, buildings_to_75ft_rail_ferries_layer, true)
     .length > 0) {
-    affected = 'within 1/2 mi of a rail station or ferry terminal and could be <span style="color:red;font-weight:600;">upzoned to 75ft</span>. Share this result using the social links at bottom left, and <font class="act-now-link" style="color: cyan;font-weight:600; cursor: pointer;text-decoration: underline;">act now by contacting your legislator!</font>';
+    affected = 'within 1/2 mi of a rail station or ferry terminal and will allow building <span style="color:red;font-weight:600;">up to 75ft</span>. Use the buttons below to share this map, or to contact your local legislator!';
   } else if (leafletPip.pointInLayer(markerLngLat, buildings_to_75ft_jobs_schools_layer, true)
     .length > 0) {
     affected =
-      'within a jobs rich or good school area and could be <span style="color:red;font-weight:600;">upzoned to 75ft</span>. Note that these areas are provisional and may change as more information is released. Share this result using the social links at bottom left, and <font class="act-now-link" style="color: cyan;font-weight:600; cursor: pointer;text-decoration: underline;">act now by contacting your legislator!</font>';
+      'within a jobs rich or good school area and will allow <span style="color:red;font-weight:600;">buildings up to 75ft</span>. Use the buttons below to share this map, or to contact your local legislator! ';
   } else {
     affected = 'outside any upzoning areas.';
   }
@@ -429,9 +516,8 @@ var ferryTerminalsLayer = L.geoJson(null, {
 
 var buildings_to_85ft_layer = L.geoJson(buildings_85ft, {
     style: {
-      //fillColor: '#81C99F',
       fillColor: 'red',
-      fillOpacity: 0.2,
+      fillOpacity: 0.4,
       weight: 1,
       color: "#000",
       opacity: 0.4
@@ -443,9 +529,8 @@ var buildings_to_85ft_layer = L.geoJson(buildings_85ft, {
 
 var buildings_to_75ft_rail_ferries_layer = L.geoJson(buildings_75ft_rail_ferry, {
     style: {
-      //fillColor: '#86a5d8',
       fillColor: 'blue',
-      fillOpacity: 0.2,
+      fillOpacity: 0.4,
       weight: 1,
       color: "#000",
       opacity: 0.4
@@ -457,9 +542,8 @@ var buildings_to_75ft_rail_ferries_layer = L.geoJson(buildings_75ft_rail_ferry, 
 
 var buildings_to_75ft_jobs_schools_layer = L.geoJson(buildings_75ft_jobs_schools, {
     style: {
-      //fillColor: '#e8e68f',
-      fillColor: 'yellow',
-      fillOpacity: 0.2,
+      fillColor: 'gold',
+      fillOpacity: 0.4,
       weight: 1,
       color: "#000",
       opacity: 0.4
@@ -629,6 +713,10 @@ function go_back() {
   }
 }
 
+//function print() {
+//	console.log('print');
+//}
+
 //////////////////////////////////////////////////////////
 
 // DATA LOADERS
@@ -656,7 +744,7 @@ function locate_me() {
 
   var options = {
     enableHighAccuracy: false,
-    timeout: 20000,
+    timeout: 5000,
     maximumAge: 0
   };
 
@@ -669,7 +757,6 @@ function locate_me() {
 
 function errorPosition(err) {
   console.warn("ERROR(${err.code}): ${err.message}");
-  alert("Unable to location you, " + err.message);
 }
 
 function getPosition(position) {
