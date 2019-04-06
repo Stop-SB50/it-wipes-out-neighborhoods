@@ -59,8 +59,10 @@ var map = L.map('map', {
   gestureHandling: true
 });
 
-var bounds = L.latLngBounds(L.latLng(34.497957, -119.386017), L.latLng(33.514425, -117.372639));
-map.fitBounds(bounds);
+if (document.URL == 'https://github.com/Stop-SB50/it-wipes-out-neighborhoods') {
+  var bounds = L.latLngBounds(L.latLng(34.497957, -119.386017), L.latLng(33.514425, -117.372639));
+  map.fitBounds(bounds);
+}
 
 var hash = new L.Hash(map);
 
