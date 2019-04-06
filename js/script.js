@@ -62,12 +62,12 @@ var map = L.map('map', {
 if (document.URL == 'https://github.com/Stop-SB50/it-wipes-out-neighborhoods') {
   var bounds = L.latLngBounds(L.latLng(34.497957, -119.386017), L.latLng(33.514425, -117.372639));
   map.fitBounds(bounds);
-	
-} else {
   document.getElementById("search-modal")
-    .style.display = 'none';
+    .style.display = 'block';
+} else {
   bubbleTooltips();
 }
+
 
 var hash = new L.Hash(map);
 
