@@ -561,8 +561,23 @@ buildings_to_75ft_jobs_schools_layer.bringToBack();
 
 //////////////////////////////////////////////////////////
 
+
+function locationHashChanged() {
+	 $("#share-tooltip").jsSocials({
+		shares: ["email", "twitter", "facebook"],
+		text: "Check out the impact of SB 50 on my neighborhood!",
+	});
+	$("#share-tooltip1").jsSocials({
+		shares: ["email", "twitter", "facebook"],
+		text: "Check out the impact of SB 50 on my neighborhood!",
+	});
+}
+window.onhashchange = locationHashChanged
+
 // MAP EVENTS
 map.on('moveend', function() {
+
+
 
   var z = map.getZoom()
 
