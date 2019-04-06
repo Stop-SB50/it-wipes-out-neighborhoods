@@ -59,13 +59,15 @@ var map = L.map('map', {
   gestureHandling: true
 });
 console.log(document.URL);
-if (document.URL == 'https://stop-sb50.github.io/it-wipes-out-neighborhoods') {
-  var bounds = L.latLngBounds(L.latLng(34.497957, -119.386017), L.latLng(33.514425, -117.372639));
-  map.fitBounds(bounds);
-  document.getElementById("search-modal")
-    .style.display = 'block';
+if (document.URL == 'https://stop-sb50.github.io/it-wipes-out-neighborhoods' ||
+	  document.URL == 'https://stop-sb50.github.io/it-wipes-out-neighborhoods' || 
+	  document.URL == 'https://stop-sb50.github.io/it-wipes-out-neighborhoods') {
+	var bounds = L.latLngBounds(L.latLng(34.497957, -119.386017), L.latLng(33.514425, -117.372639));
+	map.fitBounds(bounds);
+	document.getElementById("search-modal")
+      .style.display = 'block';
 } else {
-  bubbleTooltips();
+	bubbleTooltips();
 }
 
 
