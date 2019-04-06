@@ -1,6 +1,7 @@
 // GLOBAL VARIABLES
 var boundsStack = [];
 var firstSearch = true;
+
 //////////////////////////////////////////////////////////
 
 // ON INITIALIZATION
@@ -70,7 +71,6 @@ if (document.URL == 'https://stop-sb50.github.io/it-wipes-out-neighborhoods' ||
 	bubbleTooltips();
 }
 
-
 var hash = new L.Hash(map);
 
 // define base tiles and add to map
@@ -120,41 +120,21 @@ L.control.browserPrint({
 $('.leaflet-control-browser-print').css('bottom','100px')
 
 map.on('browser-pre-print', function(e) {
-	console.log('preprint')
-	$('#header-row-0').css('display','none');
-	$('#tos-statement').css('display','none');
-	$('#legend-container').css('width','100%');
-	$('#legend-container').css('padding-bottom','0');
-	$('#legend-container').css('padding','10px');
-	$('#print-upper').css('position','absolute');
-	$('#print-upper').css('top','0');
-	$('#print-upper').css('left','0');
-	$('#print-upper').css('background-color','rgba(0,0,0,0.8)');
-	$('#map-container').css('border','1 px solid black');
+	$('#legend-container').css('font-size','14px');
 });
 
 map.on('browser-print-end', function(e) {
-	console.log('doneprint')
-	$('#header-row-0').css('display','block');
-	$('#tos-statement').css('display','block');
-	$('#legend-container').css('width','80%');
-	$('#print-upper').css('position','relative');
-	$('#map-container').css('border','none');
-	$('#legend-container').css('padding','0')
-	$('#legend-container').css('padding-bottom','20px');
-	$('#print-upper').css('background-color','black');
-	
-
+	$('#legend-container').css('font-size','18px');
 });
 
 
 $("#share-tooltip").jsSocials({
 	shares: ["email", "twitter", "facebook"],
-	text: "Check out the impact of SB 50 on my neighborhood!",
+	text: "Check out the impact of SB 50 on your neighborhood!",
 });
 $("#share-tooltip1").jsSocials({
 	shares: ["email", "twitter", "facebook"],
-	text: "Check out the impact of SB 50 on my neighborhood!",
+	text: "Check out the impact of SB 50 on your neighborhood!",
 });
 
 // SEARCH BOX
@@ -332,7 +312,7 @@ function searchAddress() {
 		showResults(affected, marker);
 	}
 	
-	document.getElementById('results-bar').scrollIntoView();
+	document.getElementById('map').scrollIntoView();
 
 	bubbleTooltips();
 
