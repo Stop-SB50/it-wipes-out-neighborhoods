@@ -488,7 +488,7 @@ hr {
 	}
 	
   .logo {
-	width: 80px;
+	width: 80px !important;
   }
   
   #tos-statement {
@@ -576,7 +576,61 @@ hr {
 
 }
 
-@media (min-width: 601px){
+@media (max-width: 1100px){
+	.action-button:hover .tooltiptext {
+	visibility: visible !important;
+	opacity: 1 !important;
+	}
+	.leaflet-control-zoom-in:hover .tooltiptext {
+		visibility: visible !important;
+		opacity: 1 !important;
+	}
+	.leaflet-control-zoom-out:hover .tooltiptext {
+		visibility: visible !important;
+		opacity: 1 !important;
+	}
+	
+	.share-button:hover .share-buttons-tooltip {
+		visibility: visible !important;
+		opacity: 1 !important;
+	}
+	
+	#results-bar {
+		font-size: 18px;
+	}
+	
+	#print-upper .logo {
+		width: 150px !important;
+	}
+	
+	.legend-item {
+		font-size: 16px;
+	}
+	
+	#print-upper .column {
+		width: 100%
+	}
+	
+	#upper-header-title-stuff {
+		min-width: 600px !important;
+		width: 100% !important;
+		text-align: center !important;
+		padding-right: 0  !important;
+	}
+	
+	#upper-header-img-container {
+		width: 100%  !important;
+		text-align:  center !important; 
+		padding-left: 0  !important;
+	}
+	
+	.take-action-button {
+		font-size: 14px  !important;
+		
+	}
+}
+
+@media (min-width: 1101px){
   /* Big view stuff goes here. 
 	/* Show the tooltip text when you mouse over the tooltip container */
 	.action-button:hover .tooltiptext {
