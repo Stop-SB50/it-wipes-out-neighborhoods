@@ -120,11 +120,25 @@ L.control.browserPrint({
 $('.leaflet-control-browser-print').css('bottom','100px')
 
 map.on('browser-pre-print', function(e) {
-	$('#legend-container').css('font-size','14px');
+
+	if (isMobile) {
+		
+	} else {
+		$('.legend-item').css('font-size','12px');
+		$('.legend-item div').css('width','20px');
+		$('.legend-item div').css('height','20px');
+	}
 });
 
 map.on('browser-print-end', function(e) {
-	$('#legend-container').css('font-size','18px');
+	
+	if (isMobile) {
+		$('.legend-item').css('font-size','14px');
+	} else {
+		$('.legend-item').css('font-size','18px');
+		$('.legend-item div').css('width','30px');
+		$('.legend-item div').css('height','30px');
+	}
 });
 
 
