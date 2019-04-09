@@ -409,7 +409,17 @@ hr {
 	background-color: blue;
 }
 
-
+#legend-container {
+	color:#e5e5e5;
+	width:100%;
+	font-size:18px;
+	position:absolute;
+	top:0px;
+	z-index:1050;
+	background-color:rgba(0,0,0,0.8);
+	padding-top:5px;
+	padding-bottom:5px;
+}
 
 @media only screen and (max-width: 600px) {
   #legend-container {
@@ -570,13 +580,17 @@ hr {
 	  margin-bottom: 10px !important;
   }
   
+  #upper-header-title-stuff {
+	  min-width: 100% !important;
+  }
+  
   p {
 	  margin: 0 0 1em 0 !important;
   }
 
 }
 
-@media (max-width: 1100px){
+@media (max-width: 1100px) and (min-width: 600px) {
 	.action-button:hover .tooltiptext {
 	visibility: visible !important;
 	opacity: 1 !important;
