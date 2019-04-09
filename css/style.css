@@ -421,6 +421,10 @@ hr {
 	padding-bottom:5px;
 }
 
+.logo {
+	cursor: pointer;
+}
+
 @media only screen and (max-width: 600px) {
   #legend-container {
     font-size: 14px !important;
