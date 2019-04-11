@@ -22,6 +22,13 @@ if(/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine
     isMobile = true;
 }
 
+if (isMobile) {
+    var legendItems = document.getElementsByClassName("legend-item")
+    legendItems[0].innerHTML = '<div style="vertical-align: middle; width: 30px; height: 30px; display: inline-block; border: 1px solid grey; background-color: red;"></div> Buildings up to 85 ft. </div>'
+    legendItems[1].innerHTML = '<div style="vertical-align: middle; width: 30px; height: 30px; display: inline-block; border: 1px solid grey; background-color: blue;;"></div> Buildings up to 75 ft. (near rail stops)</div>'
+    legendItems[2].innerHTML = '<div style="vertical-align: middle; width: 30px; height: 30px; display: inline-block; border: 1px solid grey; background-color: gold;"></div> Buildings up to 75 ft. (in "job rich" zones)</div>'
+}
+
 
 //////////////////////////////////////////////////////////
 
@@ -394,7 +401,8 @@ function showResults(affected, marker) {
   resultsBar.innerHTML = html
   resultsBar.style.height = "auto";
   resultsBar.style.padding = "10px";
-
+  $('#results-bar').css('border-top', '1px solid lightgrey');
+  $('#results-bar').css('top', $('#legend-container').height() + 10 + 'px');
 
   var mapId = "15/"+map.getBounds().getCenter().lat+"/"+map.getBounds().getCenter().lat
   boundsStack.push({
@@ -420,6 +428,7 @@ function hideResults() {
   resultsBar.innerHTML = '';
   resultsBar.style.height = "0";
   resultsBar.style.padding = "0";
+  $('#results-bar').css('border-top', 'none');
 }
 
 
