@@ -362,7 +362,7 @@ hr {
   z-index: 1001;
   box-sizing: border-box;
   top: 42px;
-  border-top: 1px solid grey;
+  border-top: none;
 }
 
 .close-button {
@@ -428,6 +428,7 @@ hr {
 @media only screen and (max-width: 600px) {
   #legend-container {
     font-size: 14px !important;
+	padding-left: 10px;
   }
 
   .active {
@@ -455,6 +456,7 @@ hr {
 
   .legend-item {
     width: 100% !important;
+	text-align: left !important;
   }
   
   #searchBox {
