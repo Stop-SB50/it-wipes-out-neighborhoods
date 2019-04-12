@@ -83,7 +83,7 @@ html {
 	bottom: 0;
 	padding-bottom: 10px;
 	left: 15%;
-	
+	z-index: 99999;
 }
 
 .pac-container {
