@@ -628,7 +628,7 @@ hr {
 	}
 	
 	#print-upper .column {
-		width: 100%
+		width: 100% !important;
 	}
 	
 	#upper-header-title-stuff {
@@ -642,11 +642,21 @@ hr {
 		width: 100%  !important;
 		text-align:  center !important; 
 		padding-left: 0  !important;
+		margin-bottom: 10px !important;
 	}
 	
 	.take-action-button {
 		font-size: 14px  !important;
 		
+	}
+	
+	#main-preamble {
+		padding-right: 0% !important;
+	}
+	
+	#header-row-0 .column {
+		width: 100% !important;
+		text-align: center !important;
 	}
 }
 
