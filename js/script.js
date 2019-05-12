@@ -10,7 +10,6 @@ $(function() {
 		let viewheight = $(window).height();
 		let viewwidth = $(window).width();
 		let viewport = document.querySelector("meta[name=viewport]");
-		//viewport.setAttribute("content", "height=" + viewheight + "px, width=" + viewwidth + "px, initial-scale=1.0");
 		viewport.setAttribute("content", "height=" + viewheight + ", width=" + viewwidth + ", initial-scale=1.0");
 	}, 300);
 })
@@ -23,12 +22,11 @@ if(/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine
 }
 
 if (isMobile) {
-    var legendItems = document.getElementsByClassName("legend-item")
-    legendItems[0].innerHTML = '<div style="vertical-align: middle; width: 30px; height: 30px; display: inline-block; border: 1px solid grey; background-color: red;"></div> Buildings up to 85 ft. </div>'
-    legendItems[1].innerHTML = '<div style="vertical-align: middle; width: 30px; height: 30px; display: inline-block; border: 1px solid grey; background-color: blue;;"></div> Buildings up to 75 ft. (near rail stops)</div>'
-    legendItems[2].innerHTML = '<div style="vertical-align: middle; width: 30px; height: 30px; display: inline-block; border: 1px solid grey; background-color: gold;"></div> Buildings up to 75 ft. (in "job rich" zones)</div>'
+	var legendItems = document.getElementsByClassName("legend-item")
+	legendItems[0].innerHTML = '<div style="vertical-align: middle; width: 30px; height: 30px; display: inline-block; border: 1px solid grey; background-color: red;"></div> Buildings up to 85 ft. </div>'
+	legendItems[1].innerHTML = '<div style="vertical-align: middle; width: 30px; height: 30px; display: inline-block; border: 1px solid grey; background-color: blue;;"></div> Buildings up to 75 ft. (near rail stops)</div>'
+	legendItems[2].innerHTML = '<div style="vertical-align: middle; width: 30px; height: 30px; display: inline-block; border: 1px solid grey; background-color: gold;"></div> Buildings up to 75 ft. (in "job rich" zones)</div>'
 }
-
 
 //////////////////////////////////////////////////////////
 
@@ -69,7 +67,8 @@ var map = L.map('map', {
 console.log(document.URL);
 if (document.URL == 'https://stop-sb50.github.io/it-wipes-out-neighborhoods' ||
 	  document.URL == 'https://stop-sb50.github.io/it-wipes-out-neighborhoods/' || 
-	  document.URL == 'https://stop-sb50.github.io/it-wipes-out-neighborhoods/#9/34.0076/-118.3793') {
+	  document.URL == 'https://stop-sb50.github.io/it-wipes-out-neighborhoods/#9/34.0076/-118.3793' || 
+	  document.URL == 'https://stop-sb50.github.io/it-wipes-out-neighborhoods/#9/34.0076/-118.3793www.google') {
 	var bounds = L.latLngBounds(L.latLng(34.497957, -119.386017), L.latLng(33.514425, -117.372639));
 	map.fitBounds(bounds);
 	document.getElementById("search-modal")
@@ -119,6 +118,8 @@ zoomOut.appendChild(tooltipTextZoomOut)
 
 //////////////////////////////////////////////////////////
 
+// PRINTING
+
 L.control.browserPrint({
 	position: 'bottomright',
 	printModes: ["Landscape", "Portrait", L.control.browserPrint.mode.custom("Select an area", "A4")],
@@ -148,6 +149,7 @@ map.on('browser-print-end', function(e) {
 	}
 });
 
+// SOCIAL SHARING
 
 $("#share-tooltip").jsSocials({
 	shares: ["email", "twitter", "facebook"],
@@ -188,9 +190,10 @@ searchBox.addListener('places_changed', function() {
 
 $(window).on('popstate', function(e) {
   closeTOS(1);
-  closeActNow(1);
   
 });
+
+// WIRE BUTTONS
 
 $('#search-address-button')
   .on("click", function() {
@@ -211,11 +214,6 @@ $('#go-back-button')
   .on("click", function() {
     go_back();
   });
-  
-//$('#print-button')
-//  .on("click", function() {
-//    print();
-//  });
 
 $('#close-search')
   .on("click", function() {
@@ -232,20 +230,12 @@ $('#close-tos')
     closeTOS(0);
   });
   
-$('.act-now-link')
-  .on("click", function() {
-    showActNow();
-  }); 
   
 $('.take-action-button')
   .on("click", function(e) {
     action_button_clicked(e.currentTarget.textContent);
   });
 
-$('#close-act-now')
-  .on("click", function() {
-    closeActNow(0);
-  });  
   
 $('#searchBox')
   .on("click", function() {
@@ -254,22 +244,6 @@ $('#searchBox')
 	}
   });
 
-function showActNow() {
-	document.getElementById("act-now-modal")
-    .style.display = 'block';	
-	$("body").css("overflow","hidden");
-	history.pushState({foo: 'tos'}, "")
-}
-
-function closeActNow(type) {
-	  document.getElementById("act-now-modal")
-    .style.display = 'none';	
-	$("body").css("overflow","auto");
-	if (type == 0) {
-		console.log('window back');
-		window.history.back();
-	}
-}
 
 function action_button_clicked(e) {
 	if (e == 'JOIN THE FIGHT') {
@@ -337,8 +311,7 @@ function searchAddress() {
 
 	bubbleTooltips();
 
-	// if it's the first search the user does, bubble out all the help tooltips
-	
+
 
 }
 
@@ -417,10 +390,6 @@ function showResults(affected, marker) {
     hideResults();
   });
   
-  $('.act-now-link')
-  .on("click", function() {
-    showActNow();
-  });
 }
 
 function hideResults() {
@@ -564,11 +533,46 @@ var buildings_to_75ft_jobs_schools_layer = L.geoJson(buildings_75ft_jobs_schools
     interactive: false,
   })
   .addTo(map);
+  
+var four_plex_layer = L.geoJson(four_plex_zones, {
+    style: {
+      fillColor: 'grey',
+      fillOpacity: 0.2,
+      weight: 1,
+      color: "#000",
+      opacity: 0.4
+
+    },
+    interactive: false,
+  })
+  .addTo(map);
+
+
+var stripes_pattern = new L.StripePattern({
+	angle: 45,
+	weight: 1,
+	spaceWeight: 0.1,
+	color: 'red',
+}).addTo(map);
+
+var fire_hazard_layer = L.geoJson(fire_hazard_zones, {
+    style: {
+	  fillPattern: stripes_pattern,
+      fillColor: 'red',
+      fillOpacity: 0.4,
+	  weight: 1,
+	  color: 'red',
+	  opacity: 0.2,
+    },
+    interactive: false,
+  })
+  .addTo(map);
 
 
 buildings_to_85ft_layer.bringToBack();
 buildings_to_75ft_rail_ferries_layer.bringToBack();
 buildings_to_75ft_jobs_schools_layer.bringToBack();
+four_plex_layer.bringToBack();
 
 
 //////////////////////////////////////////////////////////
@@ -731,10 +735,6 @@ function go_back() {
 		hideResults();
 	  });
 	  
-	  $('.act-now-link')
-	  .on("click", function() {
-		showActNow();
-	  });
 
     
   }
