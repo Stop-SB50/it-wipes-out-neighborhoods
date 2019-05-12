@@ -419,6 +419,17 @@ hr {
 	background-color:rgba(0,0,0,0.8);
 	padding-top:5px;
 	padding-bottom:5px;
+	display: flex;
+	flex-flow: row wrap;
+	justify-content: flex-start;
+	align-items: flex-start;
+}
+
+.legend-item {
+	margin-left: 20px;
+	margin-right: 20px;
+	margin-bottom: 2px;
+	min-width: 544px;
 }
 
 .logo {
@@ -427,8 +438,8 @@ hr {
 
 @media only screen and (max-width: 600px) {
   #legend-container {
-    font-size: 14px !important;
-	padding-left: 10px;
+    font-size: 12px !important;
+	
   }
 
   .active {
@@ -500,7 +511,7 @@ hr {
   }
   #results-bar {
 		font-size: 14px !important;
-		top: 82px !important;
+		top: 120px !important;
 	}
 	
   .logo {
@@ -561,8 +572,8 @@ hr {
   }
   
   .legend-item div {
-	 width: 20px !important; 
-	 height : 20px !important; 
+	 width: 16px !important; 
+	 height : 16px !important; 
 	 margin-bottom: 2px !important;
   }
 
