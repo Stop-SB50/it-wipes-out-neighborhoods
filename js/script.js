@@ -406,23 +406,20 @@ function checkIfAffected(marker) {
   // check each layer in turn to see if our marker is within any of the features.
 
   var affected;
-  var markerLngLat = [marker.getLatLng()
-    .lng, marker.getLatLng()
-    .lat
-  ]
+  var markerLngLat = [marker.getLatLng().lng, marker.getLatLng().lat]
 
-  if (leafletPip.pointInLayer(markerLngLat, buildings_to_85ft_layer, true)
-    .length > 0) {
+  if (leafletPip.pointInLayer(markerLngLat, buildings_to_85ft_layer, true).length > 0) {
     affected = 'within 1/4 mi of a high frequency bus stop and will allow buildings <span style="color:red;font-weight:600;">up to 85ft under SB 50</span>. Use the buttons below to share this map, or to contact your local legislator!';
-  } else if (leafletPip.pointInLayer(markerLngLat, buildings_to_75ft_rail_ferries_layer, true)
-    .length > 0) {
+  } else if (leafletPip.pointInLayer(markerLngLat, buildings_to_75ft_rail_ferries_layer, true).length > 0) {
     affected = 'within 1/2 mi of a rail station or ferry terminal and will allow building <span style="color:red;font-weight:600;">up to 75ft</span>. Use the buttons below to share this map, or to contact your local legislator!';
-  } else if (leafletPip.pointInLayer(markerLngLat, buildings_to_75ft_jobs_schools_layer, true)
-    .length > 0) {
-    affected =
-      'within a jobs rich or good school area and will allow <span style="color:red;font-weight:600;">buildings up to 75ft</span>. Use the buttons below to share this map, or to contact your local legislator! ';
+  } else if (leafletPip.pointInLayer(markerLngLat, buildings_to_75ft_jobs_schools_layer, true).length > 0) {
+    affected ='within a jobs rich or good school area and will allow <span style="color:red;font-weight:600;">buildings up to 75ft</span>. Use the buttons below to share this map, or to contact your local legislator! ';
+  } else if (leafletPip.pointInLayer(markerLngLat, fire_hazard_layer, true).length > 0) {
+	  affected = "in within a severve fire hazard zone that's exempt from taller buildings or new denisity!";
+  } else if (leafletPip.pointInLayer(markerLngLat, four_plex_layer, true).length > 0) {
+	  affected = 'is within a "Neighborhood Multi-Family" area that <span style="color:red;font-weight:600;">bans single-family zoning</span> to make way for duplexes & 4-plex micro-units. Use the buttons below to share this map, or to contact your local legislator!';
   } else {
-    affected = 'outside any upzoning areas.';
+    affected = "in a small-city Coastal Zone that's exempt from taller buildings or new density!";
   }
 
 
@@ -533,11 +530,30 @@ var buildings_to_75ft_jobs_schools_layer = L.geoJson(buildings_75ft_jobs_schools
     interactive: false,
   })
   .addTo(map);
+
+var dot_shape = new L.PatternCircle({
+	x: 2,
+	y: 2,
+	radius: 2,
+	fill: true,
+	//fillColor: 'grey',
+	//stroke: false,
+	stroke: false,
+	fillOpacity: 0.4,
+	fillColor: 'grey',
+});
+
+var dot_pattern = new L.Pattern({
+	width:10, 
+	height:10,
+});
+dot_pattern.addShape(dot_shape);
+dot_pattern.addTo(map);
   
 var four_plex_layer = L.geoJson(four_plex_zones, {
     style: {
-      fillColor: 'grey',
-      fillOpacity: 0.2,
+	  fillPattern: dot_pattern,
+	  fillOpacity: 1.0,
       weight: 1,
       color: "#000",
       opacity: 0.4
