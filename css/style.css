@@ -436,6 +436,11 @@ hr {
 	cursor: pointer;
 }
 
+.polka-dot-pattern {
+	background-color: white;
+    height: 100vh;
+}
+
 @media only screen and (max-width: 600px) {
   #legend-container {
     font-size: 12px !important;
