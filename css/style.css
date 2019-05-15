@@ -473,6 +473,8 @@ hr {
   .legend-item {
     width: 100% !important;
 	text-align: left !important;
+	font-size: 10px;
+	min-width: 0px;
   }
   
   #searchBox {
@@ -515,8 +517,7 @@ hr {
 	padding-right: 0px !important;
   }
   #results-bar {
-		font-size: 14px !important;
-		top: 120px !important;
+	font-size: 12px !important;
 	}
 	
   .logo {
