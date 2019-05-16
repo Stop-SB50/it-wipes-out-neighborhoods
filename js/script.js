@@ -418,8 +418,10 @@ function checkIfAffected(marker) {
 	  affected = "in within a severve fire hazard zone that's exempt from taller buildings or new denisity!";
   } else if (leafletPip.pointInLayer(markerLngLat, four_plex_layer, true).length > 0) {
 	  affected = 'is within a "Neighborhood Multi-Family" area that <span style="color:red;font-weight:600;">bans single-family zoning</span> to make way for duplexes & 4-plex micro-units. Use the buttons below to share this map, or to contact your local legislator!';
-  } else {
+  } else if (leafletPip.pointInLayer(markerLngLat, coastal_exlusion_layer, true).length > 0) {
     affected = "in a small-city Coastal Zone that's exempt from taller buildings or new density!";
+  } else {
+	affected = "outside of California, try again with a Califonia address!";
   }
 
 
@@ -525,6 +527,18 @@ var buildings_to_75ft_jobs_schools_layer = L.geoJson(buildings_75ft_jobs_schools
       weight: 1,
       color: "#000",
       opacity: 0.4
+
+    },
+    interactive: false,
+  })
+  .addTo(map);
+
+var coastal_exlusion_layer = L.geoJson(coastal_exlusion_zones, {
+    style: {
+      fill: false,
+      weight: 1,
+      color: "#000",
+      opacity: 0.8
 
     },
     interactive: false,
