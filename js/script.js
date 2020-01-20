@@ -413,11 +413,11 @@ function checkIfAffected(marker) {
   } else if (leafletPip.pointInLayer(markerLngLat, buildings_to_75ft_rail_ferries_layer, true).length > 0) {
     affected = 'within 1/2 mi of a rail station or ferry terminal and will allow building <span style="color:red;font-weight:600;">up to 75ft</span>. Use the buttons below to share this map, or to contact your local legislator!';
   } else if (leafletPip.pointInLayer(markerLngLat, buildings_to_75ft_jobs_schools_layer, true).length > 0) {
-    affected ='within a jobs rich or good school area and will allow <span style="color:red;font-weight:600;">buildings up to 75ft</span>. Use the buttons below to share this map, or to contact your local legislator! ';
+    affected ='in a jobs rich or good school area and will allow <span style="color:red;font-weight:600;">buildings up to 75ft</span>. Use the buttons below to share this map, or to contact your local legislator! ';
   } else if (leafletPip.pointInLayer(markerLngLat, fire_hazard_layer, true).length > 0) {
-	  affected = "in within a severve fire hazard zone that's exempt from taller buildings or new denisity!";
+	  affected = "in in a severe fire hazard zone that's exempt from taller buildings or new density!";
   } else if (leafletPip.pointInLayer(markerLngLat, four_plex_layer, true).length > 0) {
-	  affected = 'is within a "Neighborhood Multi-Family" area that <span style="color:red;font-weight:600;">bans single-family zoning</span> to make way for duplexes & 4-plex micro-units. Use the buttons below to share this map, or to contact your local legislator!';
+	  affected = 'is in a "Neighborhood Multi-Family" area that <span style="color:red;font-weight:600;">bans single-family zoning</span> to make way for duplexes & 4-plex micro-units. Use the buttons below to share this map, or to contact your local legislator!';
   } else if (leafletPip.pointInLayer(markerLngLat, coastal_exlusion_layer, true).length > 0) {
     affected = "in a small-city Coastal Zone that's exempt from taller buildings or new density!";
   } else {
@@ -553,8 +553,8 @@ var dot_shape = new L.PatternCircle({
 	//fillColor: 'grey',
 	//stroke: false,
 	stroke: false,
-	fillOpacity: 0.4,
-	fillColor: 'grey',
+	fillOpacity: 0.6,
+	fillColor: 'purple',
 });
 
 var dot_pattern = new L.Pattern({
@@ -566,10 +566,10 @@ dot_pattern.addTo(map);
   
 var four_plex_layer = L.geoJson(four_plex_zones, {
     style: {
-	  fillPattern: dot_pattern,
-	  fillOpacity: 1.0,
-      weight: 1,
-      color: "#000",
+	  //fillPattern: dot_pattern,
+	  fillOpacity: 0.4,
+      weight: 0,
+      color: "purple",
       opacity: 0.4
 
     },
@@ -580,7 +580,7 @@ var four_plex_layer = L.geoJson(four_plex_zones, {
 
 var stripes_pattern = new L.StripePattern({
 	angle: 45,
-	weight: 1,
+	weight: 3,
 	spaceWeight: 0.1,
 	color: 'red',
 }).addTo(map);
@@ -589,7 +589,7 @@ var fire_hazard_layer = L.geoJson(fire_hazard_zones, {
     style: {
 	  fillPattern: stripes_pattern,
       fillColor: 'red',
-      fillOpacity: 0.4,
+      fillOpacity: 0.6,
 	  weight: 1,
 	  color: 'red',
 	  opacity: 0.2,
